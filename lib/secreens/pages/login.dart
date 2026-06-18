@@ -118,22 +118,6 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(fontFamily: 'IBM Plex Sans Arabic', fontSize: AppTypography.md)),
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton.icon(
-                            onPressed: () => Navigator.push(
-                                context, MaterialPageRoute(builder: (_) => const RegistPage())),
-                            icon: Icon(Icons.person_add, color: Colors.blue[700], size: 26),
-                            label: Text('إنشاء حساب جديد',
-                                style: TextStyle(fontFamily: 'IBM Plex Sans Arabic', color: Colors.blue[700], fontSize: AppTypography.sm)),
-                          ),
-                          Text('ليس لديك حساب؟',
-                              style: TextStyle(fontFamily: 'IBM Plex Sans Arabic', fontSize: AppTypography.sm,
-                                  color: Colors.amber[800], fontWeight: FontWeight.w600)),
-                        ],
-                      ),
                     ],
                   ),
                 ),

@@ -10,7 +10,6 @@ export 'package:google_nav_bar/google_nav_bar.dart';
 //pages
 // export '../secreens/pages/home.dart';
 export '../secreens/pages/login.dart';
-export '../secreens/pages/regist.dart';
 export '../services/dbreq.dart';
 export '../secreens/pages/home.dart';
 export '../secreens/pages/profile.dart';

@@ -11,9 +11,9 @@ class ApiConfig {
   static const androidEmulator = false;
 
   static String get baseUrl {
-    if (kIsWeb) return 'http://localhost:$port';
+    if (kIsWeb) return 'http://127.0.0.1:$port';
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      return 'http://localhost:$port';
+      return 'http://127.0.0.1:$port';
     }
     if (Platform.isAndroid) {
       final host = androidEmulator ? '10.0.2.2' : lanHost;

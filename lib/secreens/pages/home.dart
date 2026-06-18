@@ -30,7 +30,11 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _items.clear();
           for (var item in result['items']) {
-            _items.add({'name': item['name'], 'img': item['img'] ?? ''});
+            _items.add({
+              'id': int.parse(item['id'].toString()),
+              'name': item['name'],
+              'img': (item['img']?.toString() ?? '').trim(),
+            });
           }
         });
       }
@@ -176,6 +180,7 @@ class _HomePageState extends State<HomePage> {
                       delegate: SliverChildBuilderDelegate((_, i) {
                         final item = _filteredItems[i];
                         return Container(
+                          key: ValueKey('${item['id']}-${item['img']}'),
                           decoration: BoxDecoration(
                           color: const Color.fromARGB(97, 247, 184, 66),
                             borderRadius: BorderRadius.circular(12),
@@ -237,11 +242,14 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
+    final url = db.imgUrl(img);
     return Image.network(
-      db.imgUrl(img),
+      url,
+      key: ValueKey(url),
       fit: BoxFit.cover,
       width: double.infinity,
       height: double.infinity,
+      gaplessPlayback: true,
       errorBuilder: (_, _, _) => ColoredBox(
         color: AppColors.primary.withValues(alpha: 0.1),
         child: const Center(

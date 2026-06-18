@@ -5,8 +5,13 @@ import 'package:http/http.dart' as http;
 class db {
   static String get base => ApiConfig.baseUrl;
   static String get _base => base;
-  static String imgUrl(String? path) =>
-      (path == null || path.isEmpty) ? '' : '$_base/$path';
+  static String imgUrl(String? path) {
+    if (path == null || path.isEmpty) return '';
+    final p = path.replaceAll('\\', '/').trim();
+    if (p.startsWith('http://') || p.startsWith('https://')) return p;
+    final normalized = p.replaceFirst(RegExp(r'^/+'), '');
+    return '$_base/$normalized';
+  }
 
   static Future<Map<String, dynamic>> _post(
     String path, [
@@ -60,7 +65,12 @@ class db {
       );
       request.fields['name'] = name;
       if (imagePath != null && imagePath.isNotEmpty) {
-        request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+        final fileName = imagePath.replaceAll('\\', '/').split('/').last;
+        request.files.add(await http.MultipartFile.fromPath(
+          'image',
+          imagePath,
+          filename: fileName,
+        ));
       }
       final streamed = await request.send();
       final response = await http.Response.fromStream(streamed);

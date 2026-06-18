@@ -31,7 +31,7 @@ class _MaterialsPageState extends State<MaterialsPage> {
             _items.add({
               'id': int.parse(item['id'].toString()),
               'name': item['name'],
-              'img': item['img'] ?? '',
+              'img': (item['img']?.toString() ?? '').trim(),
             });
           }
         });
@@ -129,6 +129,7 @@ class _MaterialsPageState extends State<MaterialsPage> {
                     itemBuilder: (_, i) {
                       final item = _items[i];
                       return Container(
+                        key: ValueKey('${item['id']}-${item['img']}'),
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(97, 247, 184, 66),
                           borderRadius: BorderRadius.circular(12),
@@ -394,7 +395,7 @@ class _MaterialsPageState extends State<MaterialsPage> {
                                     pickedImage?.path,
                                   );
                                   if (result['success'] == true) {
-                                    fetchItems();
+                                    await fetchItems();
                                     if (!mounted) return;
                                     FloatingSnackBar.success(
                                       context,
@@ -495,11 +496,14 @@ class _MaterialsPageState extends State<MaterialsPage> {
         ),
       );
     }
+    final url = db.imgUrl(img);
     return Image.network(
-      db.imgUrl(img),
+      url,
+      key: ValueKey(url),
       fit: BoxFit.cover,
       width: double.infinity,
       height: double.infinity,
+      gaplessPlayback: true,
       errorBuilder: (_, _, _) => ColoredBox(
         color: AppColors.primary.withValues(alpha: 0.1),
         child: const Center(

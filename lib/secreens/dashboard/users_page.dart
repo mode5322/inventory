@@ -166,15 +166,6 @@ class _UsersPageState extends State<UsersPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    u['role'] == null ? 'مستخدم' : u['role'] == 'admin' ? 'مدير' : 'مستخدم',
-                                    style: TextStyle(
-                                      fontFamily: 'IBM Plex Sans Arabic',
-                                      fontSize: AppTypography.md,
-                                      fontWeight: FontWeight.w600,
-                                      color: u['role'] == 'admin' ? Color.fromARGB(255, 255, 0, 0) : Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -311,61 +302,6 @@ class _UsersPageState extends State<UsersPage> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    DropdownButtonFormField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.security,
-                          color: AppColors.accent,
-                          size: 26,
-                        ),
-                        labelText: 'الصلاحيات',
-                        labelStyle: TextStyle(
-                          fontFamily: 'IBM Plex Sans Arabic',
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppTypography.md,
-                        ),
-                      ),
-                      style: const TextStyle(
-                        fontFamily: 'IBM Plex Sans Arabic',
-                        fontSize: AppTypography.md,
-                      ),
-                      items: const [
-                        DropdownMenuItem(
-                          value: 'admin',
-                          child: Text(
-                            'ادمن',
-                            style: TextStyle(
-                              fontFamily: 'IBM Plex Sans Arabic',
-                              fontSize: AppTypography.md,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal,
-                            ),
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          value: 'user',
-
-                          child: Text(
-                            textAlign: TextAlign.right,
-
-                            'مستخدم ',
-                            style: TextStyle(
-                              fontFamily: 'IBM Plex Sans Arabic',
-                              fontSize: AppTypography.md,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal,
-                            ),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        if (value != null) {
-                          selectedRole = value;
-                        }
-                      },
-                    ),
                   ],
                 ),
               ),

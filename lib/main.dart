@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
       home: Hive.box('userBox').get('uid') != null ? const MainHome() : const LoginPage(),
       routes: {
         '/login': (context) => const LoginPage(),
-        '/register': (context) => const RegistPage(),
         '/home': (context) => const HomePage(),
         '/dashboard': (context) => const DashPage(),
         '/users': (context) => const UsersPage(),

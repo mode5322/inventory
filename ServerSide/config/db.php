@@ -161,6 +161,20 @@ class db
     public static function delitem($id)
     {
         global $pdo;
+        $stmt = $pdo->prepare("SELECT img FROM items WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row && !empty($row['img'])) {
+            $img = str_replace('\\', '/', trim($row['img']));
+            if (str_starts_with($img, 'uploads/')) {
+                $file = __DIR__ . '/../' . $img;
+                if (is_file($file)) {
+                    @unlink($file);
+                }
+            }
+        }
+
         $stmt = $pdo->prepare("DELETE FROM items WHERE id = :id");
         if ($stmt->execute(['id' => $id])) {
             return ['success' => true, 'message' => '2'];
@@ -175,6 +189,12 @@ class db
         $stmt = $pdo->prepare("SELECT * FROM items");
         $stmt->execute();
         $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($items as &$item) {
+            $item['img'] = !empty($item['img'])
+                ? str_replace('\\', '/', trim($item['img']))
+                : '';
+        }
+        unset($item);
         return ['success' => true, 'message' => '2', 'items' => $items ?: []];
     }
 }
